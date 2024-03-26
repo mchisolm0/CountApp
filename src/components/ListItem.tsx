@@ -86,6 +86,10 @@ export interface ListItemProps extends TouchableOpacityProps {
    * Overrides `leftIcon`.
    */
   LeftComponent?: ReactElement
+  /**
+   * Optional href for ListItem
+   */
+  href?: string 
 }
 
 interface ListItemActionProps {
