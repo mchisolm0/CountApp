@@ -22,7 +22,16 @@ export default observer(function Layout() {
         tabBarItemStyle: $tabBarItem,
       }}
     >
+        {/* TODO: Update Game Icon from heart  */}
       <Tabs.Screen
+        name="game"
+        options={{
+          href: "/game",
+          headerShown: false,
+          tabBarLabel: translate("demoNavigator.gameTab"),
+          tabBarIcon: ({ focused }) => <Icon icon="game" color={focused ? colors.tint : undefined} size={30} />,
+        }}
+      /><Tabs.Screen
         name="showroom"
         options={{
           href: "/showroom",

@@ -13,6 +13,13 @@ const en = {
     exciting: "(ohh, this is exciting!)",
     letsGo: "Let's go!", // @demo remove-current-line
   },
+  gameScreen: {
+    title:
+      "Current Game",
+    readyForLaunch: "Your app, almost ready for launch!",
+    exciting: "(ohh, this is exciting!)",
+    letsGo: "Let's go!", // @demo remove-current-line
+  },
   errorScreen: {
     title: "Something went wrong!",
     friendlySubtitle:
@@ -43,6 +50,7 @@ const en = {
     hint: "Hint: you can use any email address and your favorite password :)",
   },
   demoNavigator: {
+    gameTab: "Game",
     componentsTab: "Components",
     debugTab: "Debug",
     communityTab: "Community",
