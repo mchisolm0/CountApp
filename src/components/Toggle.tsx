@@ -23,7 +23,7 @@ import Animated, {
 import { colors, spacing } from "../theme"
 import { iconRegistry, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
-import { isRTL } from "app/i18n"
+import { isRTL } from "src/i18n"
 
 type Variants = "checkbox" | "switch" | "radio"
 
@@ -426,7 +426,7 @@ function Switch(props: ToggleInputProps) {
     colors.palette.secondary500,
   ].filter(Boolean)[0]
 
-  const knobBackgroundColor = (function () {
+  const knobBackgroundColor = (function() {
     if (on) {
       return [
         $detailStyleOverride?.backgroundColor,
@@ -522,7 +522,7 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
     role === "on" && { left: "5%" },
   ]
 
-  const color = (function () {
+  const color = (function() {
     if (disabled) return colors.palette.neutral600
     if (status === "error") return colors.error
     if (!on) return innerStyle?.backgroundColor || colors.palette.secondary500
