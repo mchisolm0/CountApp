@@ -1,5 +1,6 @@
 import React, { ComponentType, Fragment, ReactElement } from "react"
 import {
+  FlexAlignType,
   StyleProp,
   TextStyle,
   TouchableOpacity,
@@ -28,6 +29,16 @@ interface CardProps extends TouchableOpacityProps {
    * `force-footer-bottom` - aligns all content to the top, but forces the footer to the bottom.
    */
   verticalAlignment?: "top" | "center" | "space-between" | "force-footer-bottom"
+  /**
+   * How the content should be aligned vertically. This is especially (but not exclusively) useful
+   * when the card is a fixed height but the content is dynamic.
+   *
+   * `top` (default) - aligns all content to the top.
+   * `center` - aligns all content to the center.
+   * `space-between` - spreads out the content evenly.
+   * `force-footer-bottom` - aligns all content to the top, but forces the footer to the bottom.
+   */
+  horizontalAlignment?: "top" | "center" | "space-between"
   /**
    * Custom component added to the left of the card body.
    */
@@ -140,6 +151,7 @@ export function Card(props: CardProps) {
     LeftComponent,
     RightComponent,
     verticalAlignment = "top",
+    horizontalAlignment = "top",
     style: $containerStyleOverride,
     contentStyle: $contentStyleOverride,
     headingStyle: $headingStyleOverride,
@@ -181,9 +193,13 @@ export function Card(props: CardProps) {
     $footerStyleOverride,
     FooterTextProps?.style,
   ]
+  // TODO: I feel my solution to adding alignItems is clunky. 
+  // It solved the type error given by the style prop of the
+  // <View style={$alignmentWrapperStyle}> after {LeftComponent}
   const $alignmentWrapperStyle = [
     $alignmentWrapper,
     { justifyContent: $alignmentWrapperFlexOptions[verticalAlignment] },
+    { alignItems: $alignmentWrapperFlexOptions[horizontalAlignment] as FlexAlignType | undefined },
     LeftComponent && { marginStart: spacing.md },
     RightComponent && { marginEnd: spacing.md },
   ]
