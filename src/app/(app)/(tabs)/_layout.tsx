@@ -23,6 +23,15 @@ export default observer(function Layout() {
       }}
     >
       <Tabs.Screen
+        name="game"
+        options={{
+          href: "/game",
+          headerShown: false,
+          tabBarLabel: translate("demoNavigator.componentsTab"),
+          tabBarIcon: ({ focused }) => <Icon icon="components" color={focused ? colors.tint : undefined} size={30} />,
+        }}
+      />
+      <Tabs.Screen
         name="showroom"
         options={{
           href: "/showroom",
