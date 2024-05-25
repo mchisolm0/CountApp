@@ -5,6 +5,22 @@
 ## WIP
 
 ### To Do
+[x] Init Ignite app
+[x] Switch to expo-router
+[x] Add Players to MobX State Tree
+[x] Update components (e.g. Card)
+[x] Draft game screen
+[ ] Draft start screen
+[ ] Create GameStore for MobX
+[ ] Implement saved games
+[ ] Make option for 1-6 Players (prevent 0 and 7+)
+[ ] Create grid and column layouts
+[ ] Have grid/column fill screen regardless of players
+
+### (Maybe) To Do
+[ ] Add Clerk login
+[ ] Create multiplayer (search for friends to play with)
+[ ] Design settings page
 
 Currently includes:
 
