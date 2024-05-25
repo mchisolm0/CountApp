@@ -2,14 +2,13 @@
 
 [![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
 
-## WIP
-
 ### To Do
 [x] Init Ignite app
 [x] Switch to expo-router
 [x] Add Players to MobX State Tree
 [x] Update components (e.g. Card)
 [x] Draft game screen
+[x] Add lifepoint change buttons
 [ ] Draft start screen
 [ ] Create GameStore for MobX
 [ ] Implement saved games
