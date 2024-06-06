@@ -262,6 +262,7 @@ export function Card(props: CardProps) {
 const $containerBase: ViewStyle = {
   borderRadius: spacing.md,
   padding: spacing.xs,
+  margin: 5,
   borderWidth: 1,
   shadowColor: colors.palette.neutral800,
   shadowOffset: { width: 0, height: 12 },
