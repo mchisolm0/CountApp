@@ -1,6 +1,5 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
-import { number } from "mobx-state-tree/dist/internal";
 
 export const PlayerModel = types
   .model("Player")
@@ -11,21 +10,21 @@ export const PlayerModel = types
     color: types.enumeration(["red", "green", "pink", "blue"]),
     playerIcon: types.enumeration(["assets/icons/bell.png", "assets/icons/lock.png"]),
   })
-  .actions(withSetPropAction)
-  .actions((player) => ({
-    addLifePoints(amount: number) {
-      player.lifePoints += amount;
-    },
-    removeLifePoints(amount: number) {
-      player.lifePoints -= amount;
-    },
-  }))
-  .views((player) => ({
+  .views((self) => ({
     get playerInfo() {
-      const defaultValue = { name: player.playerName, id: player.playerID };
+      const defaultValue = { name: self.playerName, id: self.playerID };
 
       return defaultValue;
     }
+  }))
+  .actions((self) => ({
+    removeLifePoints(amount: number) {
+      self.lifePoints = self.lifePoints - amount;
+    },
+    addLifePoints(amount: number) {
+      self.lifePoints = self.lifePoints + amount;
+    },
+    ...withSetPropAction(self)
   }))
 
 export interface Player extends Instance<typeof PlayerModel> { }
