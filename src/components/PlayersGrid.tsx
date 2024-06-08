@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { ImageStyle, TextStyle, ViewStyle } from "react-native"
-import { Button, Card, Icon, Screen, Text } from "src/components"
+import { Button, Card, Icon, Text } from "src/components"
 import { useStore } from "src/models/RootStore"
 import { spacing } from "src/theme"
 import { Player } from "src/models/Player"
