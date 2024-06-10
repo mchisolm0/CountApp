@@ -12,7 +12,7 @@
 [x] Add lifepoint change buttons
 [x] Draft start screen
 [ ] Fix game screen UI
-  [ ] Make cards dynamically fill screen
+  [x] Make cards dynamically fill screen
   [ ] Build grid for cards (2 in row flip cards 90 degrees)
   [ ] Research revising header for back button
   [ ] Create grid and column layouts
