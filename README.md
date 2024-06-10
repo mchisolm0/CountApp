@@ -2,14 +2,15 @@
 
 [![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
 
-### To Do
+## To Do
+
 [x] Init Ignite app
 [x] Switch to expo-router
 [x] Add Players to MobX State Tree
 [x] Update components (e.g. Card)
 [x] Draft game screen
 [x] Add lifepoint change buttons
-[ ] Draft start screen
+[x] Draft start screen
 [ ] Create GameStore for MobX
 [ ] Implement saved games
 [ ] Make option for 1-6 Players (prevent 0 and 7+)
@@ -17,6 +18,7 @@
 [ ] Have grid/column fill screen regardless of players
 
 ### (Maybe) To Do
+
 [ ] Add Clerk login
 [ ] Create multiplayer (search for friends to play with)
 [ ] Design settings page
