@@ -54,13 +54,13 @@ const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => 
 }
 
 export const PlayersGrid = observer(() => {
-  const {playerStore} = useStores()
+  const { playerStore } = useStores()
 
   console.log("PlayersGrid")
   console.log(playerStore.players)
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor:"red" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "red" }}>
       {playerStore.players.map((player) => (
         <Card
           key={player.playerID}
