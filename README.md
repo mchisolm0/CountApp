@@ -11,11 +11,16 @@
 [x] Draft game screen
 [x] Add lifepoint change buttons
 [x] Draft start screen
-[ ] Create GameStore for MobX
-[ ] Implement saved games
+[ ] Fix game screen UI
+  [ ] Make cards dynamically fill screen
+  [ ] Build grid for cards (2 in row flip cards 90 degrees)
+  [ ] Research revising header for back button
+  [ ] Create grid and column layouts
+  [ ] Have grid/column fill screen regardless of players
 [ ] Make option for 1-6 Players (prevent 0 and 7+)
-[ ] Create grid and column layouts
-[ ] Have grid/column fill screen regardless of players
+[ ] Create GameStore for MobX
+[ ] Draft history screen
+[ ] Implement saved games
 
 ### (Maybe) To Do
 
