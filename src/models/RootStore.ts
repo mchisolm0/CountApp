@@ -9,56 +9,5 @@ import { PlayerStoreModel } from "./PlayerStore"
 export const RootStoreModel = types.model("RootStore").props({
   authenticationStore: types.optional(AuthenticationStoreModel, {}),
   episodeStore: types.optional(EpisodeStoreModel, {}),
-  playerStore: types.optional(PlayerStoreModel, {
-    players: [
-      {
-        playerID: 1,
-        playerName: "Player ",
-        lifePoints: 20,
-        color: "green",
-        playerIcon: "assets/icons/bell.png",
-      },
-      {
-        playerID: 2,
-        playerName: "Player ",
-        lifePoints: 20,
-        color: "green",
-        playerIcon: "assets/icons/lock.png",
-      }
-    ],
-    layout: "grid",
-    favorites: [],
-    favoritesOnly: false
-  })
+  playerStore: types.optional(PlayerStoreModel, {}),
 })
-
-export type RootStoreType = Instance<typeof RootStoreModel>
-
-let rootStore: RootStoreType;
-export function useStore() {
-  if (!rootStore) {
-    rootStore = RootStoreModel.create({
-      playerStore: {
-        players: [
-          {
-            playerID: 1,
-            playerName: "Player ",
-            lifePoints: 20,
-            color: "green",
-            playerIcon: "assets/icons/bell.png",
-          },
-          {
-            playerID: 2,
-            playerName: "Player ",
-            lifePoints: 20,
-            color: "green",
-            playerIcon: "assets/icons/lock.png",
-          }
-        ],
-        layout: "grid",
-        favorites: [],
-      }
-    });
-  }
-  return rootStore;
-}

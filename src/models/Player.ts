@@ -8,25 +8,32 @@ export const PlayerModel = types
     playerName: "Player",
     lifePoints: types.number,
     color: types.enumeration(["red", "green", "pink", "blue"]),
-    playerIcon: types.enumeration(["assets/icons/bell.png", "assets/icons/lock.png"]),
+    playerIcon: types.enumeration([
+      "assets/icons/bell.png",
+      "assets/icons/lock.png",
+      "assets/icons/ladybug.png",
+      "assets/icons/settings.png",
+      "assets/icons/back.png",
+      "assets/icons/check.png",
+    ]),
   })
   .views((self) => ({
     get playerInfo() {
-      const defaultValue = { name: self.playerName, id: self.playerID };
+      const defaultValue = { name: self.playerName, id: self.playerID }
 
-      return defaultValue;
-    }
+      return defaultValue
+    },
   }))
   .actions((self) => ({
     removeLifePoints(amount: number) {
-      self.lifePoints = self.lifePoints - amount;
+      self.lifePoints = self.lifePoints - amount
     },
     addLifePoints(amount: number) {
-      self.lifePoints = self.lifePoints + amount;
+      self.lifePoints = self.lifePoints + amount
     },
-    ...withSetPropAction(self)
+    ...withSetPropAction(self),
   }))
 
-export interface Player extends Instance<typeof PlayerModel> { }
-export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> { }
-export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> { }
+export interface Player extends Instance<typeof PlayerModel> {}
+export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> {}
+export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> {}

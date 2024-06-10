@@ -6,10 +6,10 @@ import { set } from "date-fns"
 export const PlayerStoreModel = types
   .model("PlayerStore")
   .props({
-    players: types.array(PlayerModel),
-    layout: types.enumeration(["grid", "single-column"]),
-    favorites: types.array(types.reference(PlayerModel)),
-    favoritesOnly: false,
+    players: types.optional(types.array(PlayerModel), []),
+    layout: types.optional(types.enumeration(["grid", "single-column"]), "grid"),
+    favorites: types.optional(types.array(types.reference(PlayerModel)), []),
+    favoritesOnly: types.optional(types.boolean, false),
   })
   .actions((store) => ({
     addFavorite(player: Player) {
@@ -44,6 +44,7 @@ export const PlayerStoreModel = types
       }
     },
   }))
+
 
 export interface PlayerStore extends Instance<typeof PlayerStoreModel> { }
 export interface PlayerStoreSnapshot extends SnapshotOut<typeof PlayerStoreModel> { }
