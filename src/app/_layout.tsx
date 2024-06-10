@@ -4,6 +4,8 @@ import { ViewStyle } from "react-native"
 import { Slot, SplashScreen } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useInitialRootStore } from "src/models";
+import { mst } from "reactotron-mst"
+import { Reactotron } from "src/devtools/ReactotronClient";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,6 +14,7 @@ if (__DEV__) {
   // include this in our production bundle, so we are using `if (__DEV__)`
   // to only execute this in development.
   require("src/devtools/ReactotronConfig.ts");
+  Reactotron.use(mst());
 }
 
 export { ErrorBoundary } from "src/components/ErrorBoundary/ErrorBoundary";
