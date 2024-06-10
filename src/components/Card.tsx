@@ -285,18 +285,20 @@ const $alignmentWrapperFlexOptions = {
   "force-footer-bottom": "space-between",
 } as const
 
+// FIX TODO added center align but not sure about implementation
 const $containerPresets = {
   default: [
     $containerBase,
     {
       backgroundColor: colors.palette.neutral100,
       borderColor: colors.palette.neutral300,
+      alignItems: "center",
     },
   ] as StyleProp<ViewStyle>,
 
   reversed: [
     $containerBase,
-    { backgroundColor: colors.palette.neutral800, borderColor: colors.palette.neutral500 },
+    { backgroundColor: colors.palette.neutral800, borderColor: colors.palette.neutral500, alignItems: "center" },
   ] as StyleProp<ViewStyle>,
 }
 
