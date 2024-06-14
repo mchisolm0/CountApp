@@ -13,7 +13,7 @@ import { spacing } from "src/theme"
 export default function GameScreen() {
 
   return (
-    <Screen preset="auto" contentContainerStyle={$screenContentContainer} safeAreaEdges={["bottom"]}>
+    <Screen preset="fixed" contentContainerStyle={$screenContentContainer} safeAreaEdges={["bottom"]}>
       <PlayersGrid />
     </Screen>
   )
@@ -25,8 +25,8 @@ const $container: ViewStyle = {
 }
 const $screenContentContainer: ViewStyle = {
   flex: 1,
-  // paddingVertical: spacing.xxs,
-  // paddingHorizontal: spacing.lg,
+  paddingVertical: spacing.xxxs,
+  paddingHorizontal: spacing.xxxs,
 };
 
 const $title: TextStyle = {
