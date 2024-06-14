@@ -27,10 +27,12 @@ export const PlayerStoreModel = types
     ...withSetPropAction(store),
   }))
   .views((store) => ({
+    get playersCount() {
+      return store.players.length;
+    },
     get episodesForList() {
       return store.favoritesOnly ? store.favorites : store.players
     },
-
     hasFavorite(player: Player) {
       return store.favorites.includes(player)
     },

@@ -23,6 +23,22 @@ export const PlayerModel = types
 
       return defaultValue
     },
+    calculateRotation(playersCount: number, id: number) {
+      let isOddNumberOfPlayers = playersCount % 2 === 1;
+
+      if (id === playersCount - 1 && isOddNumberOfPlayers) {
+        return '0deg';
+      } else if (playersCount < 3) {
+        return '0deg';
+      } else if (id % 2 === 0) {
+        return '90deg';
+      } else if (id % 2 === 1) {
+        return '-90deg';
+      } else {
+        return '0deg';
+      }
+    },
+
   }))
   .actions((self) => ({
     removeLifePoints(amount: number) {
@@ -34,6 +50,6 @@ export const PlayerModel = types
     ...withSetPropAction(self),
   }))
 
-export interface Player extends Instance<typeof PlayerModel> {}
-export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> {}
-export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> {}
+export interface Player extends Instance<typeof PlayerModel> { }
+export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> { }
+export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> { }
