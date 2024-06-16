@@ -67,6 +67,9 @@ export const PlayersGrid = observer(() => {
   let row = 1
   const { playerStore: { players } } = useStores()
 
+
+  // const $containerStyle = [$containerBaseStyle, $containerExpander]
+
   return (
     <View style={$container}>
       {players.map((player: Player) => {
@@ -87,26 +90,24 @@ export const PlayersGrid = observer(() => {
         }
 
         const $cardContainer: ViewStyle = {
-          width: `${100 / column}%`,
           flexDirection: 'row',
           flexWrap: 'wrap',
           // backgroundColor: colors.background,
+          borderColor: "orange",
+          borderWidth: 5,
           backgroundColor: 'red',
+          width: `${100 / column}%`,
+          height: `${100 / row}%`,
+          // transform: [{ rotate: rotationDegrees }]
         }
 
         const $rotationWrapperStyle: ViewStyle = {
-          // transform: [{ rotate: rotationDegrees }],
+          // width: `130%`,
+          // height: `80%`,
           // TODO set height, subtracting height of
           // safe areas and header
-          height: `${100 / (playerCount)}%`,
         }
         const $cardStyle = [$cardBaseStyle, $rotationWrapperStyle, { backgroundColor: 'green' }]
-
-        const $gridContainer: ViewStyle = {
-          height: `100 %`,
-          width: `100 %`,
-          flexDirection: 'row'
-        }
 
         return (
           <View style={$cardContainer}>
@@ -143,6 +144,7 @@ export const PlayersGrid = observer(() => {
 
 const $container: ViewStyle = {
   width: `${100}%`,
+  height: `${100}%`,
   flexDirection: 'row',
   flexWrap: 'wrap',
   backgroundColor: 'blue'
@@ -151,7 +153,7 @@ const $container: ViewStyle = {
 const $cardBaseStyle: ViewStyle = {
   minHeight: 160,
   flex: 1,
-  flexGrow: 1,
+  // flexGrow: 1,
   justifyContent: "center",
   paddingHorizontal: spacing.lg,
 }
