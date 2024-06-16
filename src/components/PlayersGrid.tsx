@@ -70,13 +70,20 @@ export const PlayersGrid = observer(() => {
   return (
     <View style={$container}>
       {players.map((player: Player) => {
-        const { playerStore: { playerCount } } = useStores()
-        let rotationDegrees = player.calculateRotation(playerCount, player.playerID)
         const { height, width } = useWindowDimensions()
+        const { playerStore: { playersCount } } = useStores()
+        let rotationDegrees = player.calculateRotation(playersCount, player.playerID)
         let isRotated = false;
 
         if (rotationDegrees !== '0deg') {
           isRotated = true;
+        }
+        if (playersCount < 3) {
+          row = 1
+        } else if (playersCount < 5) {
+          row = 2
+        } else {
+          row = 3
         }
 
         const $cardContainer: ViewStyle = {
