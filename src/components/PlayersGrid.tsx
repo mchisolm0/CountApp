@@ -63,7 +63,8 @@ const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => 
 
 export const PlayersGrid = observer(() => {
   // TODO refactor to only pull out players array
-  const column = 2
+  let column = 2
+  let row = 1
   const { playerStore: { players } } = useStores()
 
   return (
