@@ -67,6 +67,9 @@ export const PlayersGrid = observer(() => {
   let row = 1
   const { playerStore: { players } } = useStores()
 
+  // TODO $containerExpander stores the style to dynamically
+  // expand the last container in the map if there is only
+  // one in the row
 
   // const $containerStyle = [$containerBaseStyle, $containerExpander]
 
@@ -89,6 +92,10 @@ export const PlayersGrid = observer(() => {
           row = 3
         }
 
+        // TODO draw out the containers to determine
+        // how to get the height/width right
+        // TODO brainstorm passing a preset to rotate
+        // the card
         const $cardContainer: ViewStyle = {
           flexDirection: 'row',
           flexWrap: 'wrap',
