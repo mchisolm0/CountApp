@@ -1,12 +1,15 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
+/**
+ * Model description here for TypeScript hints.
+ */
 export const PlayerModel = types
   .model("Player")
   .props({
     playerID: types.identifierNumber,
     playerName: "Player",
-    lifePoints: types.number,
+    lifePoints: 20,
     color: types.enumeration(["red", "green", "pink", "blue"]),
     playerIcon: types.enumeration([
       "assets/icons/bell.png",
@@ -17,12 +20,8 @@ export const PlayerModel = types
       "assets/icons/check.png",
     ]),
   })
+  .actions(withSetPropAction)
   .views((self) => ({
-    get playerInfo() {
-      const defaultValue = { name: self.playerName, id: self.playerID }
-
-      return defaultValue
-    },
     calculateRotation(playersCount: number, id: number) {
       let isOddNumberOfPlayers = playersCount % 2 === 1;
 
@@ -38,8 +37,7 @@ export const PlayerModel = types
         return '0deg';
       }
     },
-
-  }))
+  })) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
     removeLifePoints(amount: number) {
       self.lifePoints = self.lifePoints - amount
@@ -47,9 +45,13 @@ export const PlayerModel = types
     addLifePoints(amount: number) {
       self.lifePoints = self.lifePoints + amount
     },
-    ...withSetPropAction(self),
-  }))
+  })) // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export interface Player extends Instance<typeof PlayerModel> { }
 export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> { }
 export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> { }
+export const createPlayerDefaultModel = () => types.optional(PlayerModel, {
+  playerID: 1,
+  color: "red",
+  playerIcon: "assets/icons/bell.png"
+})

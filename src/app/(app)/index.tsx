@@ -41,7 +41,7 @@ export default observer(function WelcomeScreen() {
       examplePlayers.push(newPlayer)
     }
 
-    playerStore.setPlayers(examplePlayers)
+    playerStore.setProp("players", examplePlayers)
 
     router.push("/game")
   }

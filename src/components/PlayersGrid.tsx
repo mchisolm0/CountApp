@@ -111,9 +111,11 @@ export const PlayersGrid = observer(() => {
         const $cardStyle = [$cardBaseStyle, $rotationWrapperStyle]
 
         return (
-          <View style={$cardContainer}>
+          <View
+            key={player.playerID}
+            style={$cardContainer}
+          >
             <Card
-              key={player.playerID}
               horizontalAlignment="center"
               verticalAlignment="center"
               style={$cardStyle}
