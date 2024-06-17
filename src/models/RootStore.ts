@@ -1,4 +1,5 @@
 import { Instance, types } from "mobx-state-tree"
+import { GameStoreModel } from "./GameStore"
 import { AuthenticationStoreModel } from "./AuthenticationStore"
 import { EpisodeStoreModel } from "./EpisodeStore"
 import { PlayerStoreModel } from "./PlayerStore"
