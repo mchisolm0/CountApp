@@ -109,6 +109,7 @@ export default observer(function Login(_props) {
 });
 
 const $screenContentContainer: ViewStyle = {
+  flex: 1,
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
 };
