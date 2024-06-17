@@ -11,19 +11,21 @@
 [x] Draft game screen
 [x] Add lifepoint change buttons
 [x] Draft start screen
-[ ] Fix game screen UI
+[x] Fix game screen UI
   [x] Make cards dynamically fill screen
-  [ ] Build grid for cards (2 in row flip cards 90 degrees)
-  [ ] Research revising header for back button
-  [ ] Create grid and column layouts
-  [ ] Have grid/column fill screen regardless of players
-[ ] Make option for 1-6 Players (prevent 0 and 7+)
-[ ] Create GameStore for MobX
-[ ] Draft history screen
+  [x] Create grid and column layouts
+  [x] Have grid/column fill screen regardless of players
 [ ] Implement saved games
+  [ ] Create GameStore for MobX
+  [ ] Draft history screen
+[ ] Implement settings page
+  [ ] Brainstorm settings needed
+  [ ] Draft settings page
 
 ### (Maybe) To Do
 
+[ ] Build grid for cards (2 in row flip cards 90 degrees)
+[ ] Research revising header for back button
 [ ] Add Clerk login
 [ ] Create multiplayer (search for friends to play with)
 [ ] Design settings page
