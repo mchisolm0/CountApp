@@ -1,15 +1,13 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { FC } from "react"
-import { TextStyle, View, ViewStyle, useWindowDimensions } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { useStores } from "src/models"
 import { Player } from "src/models/Player"
 import { spacing } from "src/theme"
-import PlayerCard from "./PlayerCard"
-import { Card } from "./Card"
-import { Text } from "./Text"
 import { Button } from "./Button"
+import { Card } from "./Card"
 import { Icon } from "./Icon"
+import { Text } from "./Text"
 
 interface AddLifePointsButtonProps {
   player: Player
@@ -18,11 +16,6 @@ interface RemoveLifePointsButtonProps {
   player: Player
 }
 
-interface PlayerCardProps {
-  player: Player;
-}
-
-// TODO Finish making buttons with both +5/+1 and minus
 const RemoveLifePointsButton: React.FC<RemoveLifePointsButtonProps> = ({ player }) => {
   return (
     <View style={{ flexDirection: "column" }}>
@@ -76,14 +69,18 @@ export const PlayersGrid = observer(() => {
   return (
     <View style={$container}>
       {players.map((player: Player) => {
-        const { height, width } = useWindowDimensions()
         const { playerStore: { playersCount } } = useStores()
-        let rotationDegrees = player.calculateRotation(playersCount, player.playerID)
-        let isRotated = false;
-
-        if (rotationDegrees !== '0deg') {
-          isRotated = true;
-        }
+        // TODO make cards rotate clockwise/counterclockwise
+        // based on if it is left/right of the screen
+        // (so players on each side see the text the right way)
+        //
+        // Previous code for rotation
+        // let rotationDegrees = player.calculateRotation(playersCount, player.playerID)
+        // let isRotated = false;
+        //
+        // if (rotationDegrees !== '0deg') {
+        //   isRotated = true;
+        // }
         if (playersCount < 3) {
           row = 1
         } else if (playersCount < 5) {
@@ -99,12 +96,9 @@ export const PlayersGrid = observer(() => {
         const $cardContainer: ViewStyle = {
           flexDirection: 'row',
           flexWrap: 'wrap',
-          // backgroundColor: colors.background,
-          borderColor: "orange",
-          borderWidth: 5,
-          backgroundColor: 'red',
           width: `${100 / column}%`,
           height: `${100 / row}%`,
+          // backgroundColor: colors.background,
           // transform: [{ rotate: rotationDegrees }]
         }
 
@@ -114,7 +108,7 @@ export const PlayersGrid = observer(() => {
           // TODO set height, subtracting height of
           // safe areas and header
         }
-        const $cardStyle = [$cardBaseStyle, $rotationWrapperStyle, { backgroundColor: 'green' }]
+        const $cardStyle = [$cardBaseStyle, $rotationWrapperStyle]
 
         return (
           <View style={$cardContainer}>
@@ -154,17 +148,13 @@ const $container: ViewStyle = {
   height: `${100}%`,
   flexDirection: 'row',
   flexWrap: 'wrap',
-  backgroundColor: 'blue'
 }
 
 const $cardBaseStyle: ViewStyle = {
   minHeight: 160,
-  flex: 1,
-  // flexGrow: 1,
+  height: `${100}%`,
+  width: `${100}%`,
   justifyContent: "center",
   paddingHorizontal: spacing.lg,
 }
 
-const $unnamedText: TextStyle = {
-  marginBottom: spacing.md,
-}
