@@ -1,6 +1,6 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
-import { PlayerStoreModel } from "./PlayerStore"
+import { PlayerStoreModel, createPlayerStoreDefaultModel } from "./PlayerStore"
 
 /**
  * Model description here for TypeScript hints.
@@ -8,8 +8,9 @@ import { PlayerStoreModel } from "./PlayerStore"
 export const GameModel = types
   .model("Game")
   .props({
-    gameID: types.identifier,
-    playerStore: types.optional(types.array(PlayerStoreModel), []),
+    gameID: types.optional(types.identifierNumber, -1),
+    date: types.optional(types.Date, Date.now()),
+    playerStore: types.optional(PlayerStoreModel, createPlayerStoreDefaultModel),
     isActive: true,
     isLocalMultiplayer: true
   })
