@@ -24,6 +24,10 @@ export default observer(function WelcomeScreen() {
 
     for (let i = 0; i < numberPlayers; i++) {
       const newPlayer = PlayerModel.create({
+        // TODO will eventually need to track numbers
+        // used to ensure no duplicates. Possibly a
+        // map or set?
+        playerID: Math.floor(Math.random() * 100),
         playerNumber: i,
         color: colorsList[i],
         playerIcon: iconsList[i]

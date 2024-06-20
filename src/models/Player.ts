@@ -8,12 +8,12 @@ import { colorsList, iconsList } from "assets/misc/lists";
 export const PlayerModel = types
   .model("Player")
   .props({
-    playerID: types.optional(types.identifierNumber, Math.floor(Math.random() * 100)),
+    playerID: types.optional(types.identifierNumber, -1),
     playerNumber: types.optional(types.number, 0),
     playerName: types.optional(types.string, "Player"),
     lifePoints: types.optional(types.number, 20),
     color: types.enumeration(colorsList),
-    playerIcon: types.enumeration(iconsList), 
+    playerIcon: types.enumeration(iconsList),
   })
   .actions(withSetPropAction)
   .views((self) => ({
