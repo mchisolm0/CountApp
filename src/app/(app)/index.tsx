@@ -24,11 +24,7 @@ export default observer(function WelcomeScreen() {
 
     for (let i = 0; i < numberPlayers; i++) {
       const newPlayer = PlayerModel.create({
-        playerID: i,
-        playerName: "Player ",
-        lifePoints: 20,
-        color: "green",
-        playerIcon: exampleIcons[i],
+        playerNumber: i,
         color: colorsList[i],
         playerIcon: iconsList[i]
       })

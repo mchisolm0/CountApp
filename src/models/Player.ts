@@ -1,5 +1,6 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
+import { colorsList, iconsList } from "assets/misc/lists";
 
 /**
  * Model description here for TypeScript hints.
@@ -7,9 +8,10 @@ import { withSetPropAction } from "./helpers/withSetPropAction"
 export const PlayerModel = types
   .model("Player")
   .props({
-    playerID: types.identifierNumber,
-    playerName: "Player",
-    lifePoints: 20,
+    playerID: types.optional(types.identifierNumber, Math.floor(Math.random() * 100)),
+    playerNumber: types.optional(types.number, 0),
+    playerName: types.optional(types.string, "Player"),
+    lifePoints: types.optional(types.number, 20),
     color: types.enumeration(colorsList),
     playerIcon: types.enumeration(iconsList), 
   })
@@ -43,8 +45,4 @@ export const PlayerModel = types
 export interface Player extends Instance<typeof PlayerModel> { }
 export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> { }
 export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> { }
-export const createPlayerDefaultModel = () => types.optional(PlayerModel, {
-  playerID: 1,
-  color: "red",
-  playerIcon: "assets/icons/bell.png"
-})
+export const createPlayerDefaultModel = (playerNum: number) => types.optional(PlayerModel, {})
