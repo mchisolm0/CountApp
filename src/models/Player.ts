@@ -10,15 +10,8 @@ export const PlayerModel = types
     playerID: types.identifierNumber,
     playerName: "Player",
     lifePoints: 20,
-    color: types.enumeration(["red", "green", "pink", "blue"]),
-    playerIcon: types.enumeration([
-      "assets/icons/bell.png",
-      "assets/icons/lock.png",
-      "assets/icons/ladybug.png",
-      "assets/icons/settings.png",
-      "assets/icons/back.png",
-      "assets/icons/check.png",
-    ]),
+    color: types.enumeration(colorsList),
+    playerIcon: types.enumeration(iconsList), 
   })
   .actions(withSetPropAction)
   .views((self) => ({

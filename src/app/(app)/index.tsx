@@ -9,6 +9,7 @@ import { colors, spacing } from "src/theme"
 import { useHeader } from "src/utils/useHeader"
 import { useSafeAreaInsetsStyle } from "src/utils/useSafeAreaInsetsStyle"
 import { PlayerModel } from "src/models/Player"
+import { colorsList, iconsList } from "assets/misc/lists"
 
 const welcomeLogo = require("assets/images/logo.png")
 const welcomeFace = require("assets/images/welcome-face.png")
@@ -21,15 +22,6 @@ export default observer(function WelcomeScreen() {
   function goNext(numberPlayers: number) {
     const examplePlayers = []
 
-    const exampleIcons = [
-      "assets/icons/bell.png",
-      "assets/icons/lock.png",
-      "assets/icons/ladybug.png",
-      "assets/icons/settings.png",
-      "assets/icons/back.png",
-      "assets/icons/check.png",
-    ]
-
     for (let i = 0; i < numberPlayers; i++) {
       const newPlayer = PlayerModel.create({
         playerID: i,
@@ -37,6 +29,8 @@ export default observer(function WelcomeScreen() {
         lifePoints: 20,
         color: "green",
         playerIcon: exampleIcons[i],
+        color: colorsList[i],
+        playerIcon: iconsList[i]
       })
       examplePlayers.push(newPlayer)
     }
