@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite"
 import React from "react"
 import { ImageStyle, TextStyle, ViewStyle } from "react-native"
 import { Screen, Text } from "src/components"
@@ -10,7 +11,7 @@ import { spacing } from "src/theme"
 // const reactNativeRadioLogo = require("assets/images/demo/rnr-logo.png")
 // const reactNativeNewsletterLogo = require("assets/images/demo/rnn-logo.png")
 
-export default function GameScreen() {
+function GameScreen() {
 
   return (
     <Screen preset="fixed" contentContainerStyle={$screenContentContainer} safeAreaEdges={["bottom"]}>
@@ -18,6 +19,8 @@ export default function GameScreen() {
     </Screen>
   )
 }
+
+export default observer(GameScreen)
 
 const $container: ViewStyle = {
   paddingTop: spacing.lg + spacing.xl,
