@@ -1,6 +1,7 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
-import { PlayerStoreModel, createPlayerStoreDefaultModel } from "./PlayerStore"
+import { PlayerModel } from "./Player"
+import { v4 } from "uuid"
 
 /**
  * Model description here for TypeScript hints.
@@ -8,15 +9,23 @@ import { PlayerStoreModel, createPlayerStoreDefaultModel } from "./PlayerStore"
 export const GameModel = types
   .model("Game")
   .props({
-    gameID: types.optional(types.identifierNumber, -1),
-    date: types.optional(types.Date, Date.now()),
-    playerStore: types.optional(PlayerStoreModel, createPlayerStoreDefaultModel),
+    gameID: types.optional(types.identifier, () => v4()),
+    date: types.optional(types.Date, () => Date.now()),
+    players: types.array(PlayerModel),
+    layout: types.optional(types.enumeration(["grid", "single-column"]), "grid"),
     isActive: true,
     isLocalMultiplayer: true
   })
   .actions(withSetPropAction)
-  .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
-  .actions((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
+  .views((self) => ({
+    get playersCount() {
+      return self.players.length
+    },
+    get getGameID() {
+      return self.gameID
+    }
+  }))
+  .actions((self) => ({})) // eslint-disable-line  @typescript-eslint/no-unused-vars
 
 export interface Game extends Instance<typeof GameModel> { }
 export interface GameSnapshotOut extends SnapshotOut<typeof GameModel> { }

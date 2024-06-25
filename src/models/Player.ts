@@ -1,6 +1,7 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 import { colorsList, iconsList } from "assets/misc/lists";
+import { v4 as uuidv4 } from "uuid"
 
 /**
  * Model description here for TypeScript hints.
@@ -8,7 +9,7 @@ import { colorsList, iconsList } from "assets/misc/lists";
 export const PlayerModel = types
   .model("Player")
   .props({
-    playerID: types.optional(types.identifierNumber, -1),
+    playerID: types.optional(types.identifier, () => uuidv4()),
     playerNumber: types.optional(types.number, 0),
     playerName: types.optional(types.string, "Player"),
     lifePoints: types.optional(types.number, 20),
