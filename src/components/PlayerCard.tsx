@@ -4,10 +4,9 @@ import { Text } from './Text';
 import { Player } from 'src/models/Player';
 import { spacing } from 'src/theme';
 import { Icon } from './Icon';
-import { TransformsStyle, View, ViewStyle, useWindowDimensions } from 'react-native';
+import { View, ViewStyle} from 'react-native';
 import { Card } from './Card';
 import { observer } from 'mobx-react-lite';
-import { useStores } from 'src/models';
 
 // import { Container } from './styles';
 
@@ -69,7 +68,7 @@ function PlayerCard({ player }: PlayerCardProps) {
   // let rotationDegrees = player.calculateRotation(numberOfPlayers, player.playerID)
   // const column = 2;
   // const { height, width } = useWindowDimensions()
-  let isRotated = false;
+  // let isRotated = false;
 
   // if (rotationDegrees !== '0deg') {
   //   isRotated = true;
