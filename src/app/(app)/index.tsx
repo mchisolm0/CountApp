@@ -9,6 +9,7 @@ import { colors, spacing } from "src/theme"
 import { useHeader } from "src/utils/useHeader"
 import { useSafeAreaInsetsStyle } from "src/utils/useSafeAreaInsetsStyle"
 import { PlayerModel } from "src/models/Player"
+import { GameModel } from "src/models/Game"
 import { colorsList, iconsList } from "assets/misc/lists"
 
 const welcomeLogo = require("assets/images/logo.png")
@@ -16,27 +17,11 @@ const welcomeFace = require("assets/images/welcome-face.png")
 
 export default observer(function WelcomeScreen() {
   const { authenticationStore: { logout },
-    playerStore,
+    gameStore,
   } = useStores()
 
-  function goNext(numberPlayers: number) {
-    const examplePlayers = []
-
-    for (let i = 0; i < numberPlayers; i++) {
-      const newPlayer = PlayerModel.create({
-        // TODO will eventually need to track numbers
-        // used to ensure no duplicates. Possibly a
-        // map or set?
-        playerID: Math.floor(Math.random() * 100),
-        playerNumber: i,
-        color: colorsList[i],
-        playerIcon: iconsList[i]
-      })
-      examplePlayers.push(newPlayer)
-    }
-
-    playerStore.setProp("players", examplePlayers)
-
+  function goNewGame(numberPlayers: number) {
+    gameStore.createGame(numberPlayers)
     router.push("/game")
   }
 
@@ -55,6 +40,7 @@ export default observer(function WelcomeScreen() {
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <View style={[$bottomContainer, $bottomContainerInsets]}>
+          <Button testID="continue-game-screen-button" preset="reversed" text="Current Game" onPress={() => router.push("/game")} />
           <Button testID="game-history-screen-button" preset="default" text="Game History" onPress={() => router.push("/game-history")} />
           <Button testID="history-screen-button" preset="default" text="Settings" onPress={() => router.push("/settings")} />
         </View>
@@ -68,19 +54,19 @@ export default observer(function WelcomeScreen() {
           testID="next-screen-button"
           preset="reversed"
           text="2 Players"
-          onPress={() => goNext(2)}
+          onPress={() => goNewGame(2)}
         />
         <Button
           testID="next-screen-button"
           preset="reversed"
           text="3 Players"
-          onPress={() => goNext(3)}
+          onPress={() => goNewGame(3)}
         />
         <Button
           testID="next-screen-button"
           preset="reversed"
           text="4 Players"
-          onPress={() => goNext(4)}
+          onPress={() => goNewGame(4)}
         />
       </View>
     </View>
