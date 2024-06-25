@@ -15,13 +15,13 @@
   [x] Make cards dynamically fill screen
   [x] Create grid and column layouts
   [x] Have grid/column fill screen regardless of players
-[ ] Fix Player and PlayersStore models
-  [ ] Rename old files
-  [ ] Generate new files with ignite-cli
-  [ ] Transfer implementation from old to new
-  [ ] Verify new models work with existing PlayerGrid
-[ ] Implement saved games
-  [ ] Create GameStore for MobX
+[x] Fix Player and PlayersStore models
+  [x] Rename old files
+  [x] Generate new files with ignite-cli
+  [x] Transfer implementation from old to new
+  [x] Verify new models work with existing PlayerGrid
+[x] Implement saved games
+  [x] Create GameStore for MobX
   [ ] Draft history screen
 [ ] Implement settings page
   [ ] Brainstorm settings needed
