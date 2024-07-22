@@ -1,6 +1,6 @@
 # Life Counter App based on Ignite Boilerplate
 
-[![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
+## Based on the Ignite boilerplate by Infinite Red
 
 ## To Do
 
@@ -39,6 +39,47 @@ Currently includes:
 - And more!
 
 ### Reference
+This is the boilerplate that [Infinite Red](https://infinite.red) uses to test bleeding-edge changes to their React Native stack.
+
+## Quick Start
+
+### Setup
+
+1. Fork and/or clone this repo
+2. Run `yarn` to get dependencies setup
+3. Run `npx expo prebuild`
+4. Run `npx expo run:ios` or `npx expo run:android` (both should work)
+
+### General Reference
+
+**components**
+This is where your reusable components live which help you build your screens.
+
+**i18n**
+This is where your translations will live if you are using `react-native-i18n`.
+
+**models**
+This is where your app's models will live. Each model has a directory which will contain the `mobx-state-tree` model file, test file, and any other supporting files like actions, types, etc.
+
+**services**
+Any services that interface with the outside world will live here (think REST APIs, Push Notifications, etc.).
+
+**theme**
+Here lives the theme for your application, including spacing, colors, and typography.
+
+**utils**
+This is a great place to put miscellaneous helpers and utilities. Things like date helpers, formatters, etc. are often found here. However, it should only be used for things that are truly shared across your application. If a helper or utility is only used by a specific component or model, consider co-locating your helper with that component or model.
+
+### ./assets directory
+
+This directory is designed to organize and store various assets, making it easy for you to manage and use them in your application. The assets are further categorized into subdirectories, including `icons` and `images`:
+
+```
+assets
+├── icons
+├── images
+└── misc
+```
 
 **icons**
 This is where your icon assets will live. These icons can be used for buttons, navigation elements, or any other UI components. The recommended format for icons is PNG, but other formats can be used as well.

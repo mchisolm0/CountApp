@@ -56,9 +56,9 @@ const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => 
 
 export const PlayersGrid = observer(() => {
   // TODO refactor to only pull out players array
-  let column = 2
+  const column = 2
   let row = 1
-  const { playerStore: { players } } = useStores()
+  const { gameStore: { currentGame } } = useStores()
 
   // TODO $containerExpander stores the style to dynamically
   // expand the last container in the map if there is only
@@ -68,8 +68,7 @@ export const PlayersGrid = observer(() => {
 
   return (
     <View style={$container}>
-      {players.map((player: Player) => {
-        const { playerStore: { playersCount } } = useStores()
+      {currentGame.players.map((player: Player) => {
         // TODO make cards rotate clockwise/counterclockwise
         // based on if it is left/right of the screen
         // (so players on each side see the text the right way)
@@ -81,9 +80,9 @@ export const PlayersGrid = observer(() => {
         // if (rotationDegrees !== '0deg') {
         //   isRotated = true;
         // }
-        if (playersCount < 3) {
+        if (currentGame.playersCount < 3) {
           row = 1
-        } else if (playersCount < 5) {
+        } else if (currentGame.playersCount < 5) {
           row = 2
         } else {
           row = 3
@@ -123,7 +122,7 @@ export const PlayersGrid = observer(() => {
                 <Text
                   style={{ marginVertical: spacing.sm }}
                   size="xxs"
-                  text={player.playerName + player.playerID}
+                  text={player.playerName + player.playerNumber}
                 />
               }
               LeftComponent={<RemoveLifePointsButton player={player} />}
@@ -159,4 +158,3 @@ const $cardBaseStyle: ViewStyle = {
   justifyContent: "center",
   paddingHorizontal: spacing.lg,
 }
-

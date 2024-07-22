@@ -1,48 +1,25 @@
 import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { Image, ImageStyle, View, ViewStyle } from "react-native"
 import { Button, Text } from "src/components"
 import { isRTL } from "src/i18n"
 import { useStores } from "src/models"
 import { colors, spacing } from "src/theme"
 import { useHeader } from "src/utils/useHeader"
 import { useSafeAreaInsetsStyle } from "src/utils/useSafeAreaInsetsStyle"
-import { PlayerModel } from "src/models/Player"
 
 const welcomeLogo = require("assets/images/logo.png")
 const welcomeFace = require("assets/images/welcome-face.png")
 
 export default observer(function WelcomeScreen() {
-  const { authenticationStore: { logout },
-    playerStore,
+  const {
+    authenticationStore: { logout },
+    gameStore,
   } = useStores()
 
-  function goNext(numberPlayers: number) {
-    const examplePlayers = []
-
-    const exampleIcons = [
-      "assets/icons/bell.png",
-      "assets/icons/lock.png",
-      "assets/icons/ladybug.png",
-      "assets/icons/settings.png",
-      "assets/icons/back.png",
-      "assets/icons/check.png",
-    ]
-
-    for (let i = 0; i < numberPlayers; i++) {
-      const newPlayer = PlayerModel.create({
-        playerID: i,
-        playerName: "Player ",
-        lifePoints: 20,
-        color: "green",
-        playerIcon: exampleIcons[i],
-      })
-      examplePlayers.push(newPlayer)
-    }
-
-    playerStore.setProp("players", examplePlayers)
-
+  function goNewGame(numberPlayers: number) {
+    gameStore.createGame(numberPlayers)
     router.push("/game")
   }
 
@@ -61,8 +38,24 @@ export default observer(function WelcomeScreen() {
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <View style={[$bottomContainer, $bottomContainerInsets]}>
-          <Button testID="game-history-screen-button" preset="default" text="Game History" onPress={() => router.push("/game-history")} />
-          <Button testID="history-screen-button" preset="default" text="Settings" onPress={() => router.push("/settings")} />
+          <Button
+            testID="continue-game-screen-button"
+            preset="reversed"
+            text="Current Game"
+            onPress={() => router.push("/game")}
+          />
+          <Button
+            testID="game-history-screen-button"
+            preset="default"
+            text="Game History"
+            onPress={() => router.push("/game-history")}
+          />
+          <Button
+            testID="history-screen-button"
+            preset="default"
+            text="Settings"
+            onPress={() => router.push("/settings")}
+          />
         </View>
         <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
       </View>
@@ -74,19 +67,19 @@ export default observer(function WelcomeScreen() {
           testID="next-screen-button"
           preset="reversed"
           text="2 Players"
-          onPress={() => goNext(2)}
+          onPress={() => goNewGame(2)}
         />
         <Button
           testID="next-screen-button"
           preset="reversed"
           text="3 Players"
-          onPress={() => goNext(3)}
+          onPress={() => goNewGame(3)}
         />
         <Button
           testID="next-screen-button"
           preset="reversed"
           text="4 Players"
-          onPress={() => goNext(4)}
+          onPress={() => goNewGame(4)}
         />
       </View>
     </View>
@@ -131,6 +124,3 @@ const $welcomeFace: ImageStyle = {
   transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
 
-const $welcomeHeading: TextStyle = {
-  marginBottom: spacing.md,
-}
