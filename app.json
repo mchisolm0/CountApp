@@ -1,10 +1,10 @@
 {
-  "name": "AndCounting",
-  "displayName": "AndCounting",
+  "name": "CountApp",
+  "displayName": "CountApp",
   "expo": {
-    "name": "AndCounting",
-    "slug": "AndCounting",
-    "scheme": "andcounting",
+    "name": "CountApp",
+    "slug": "CountApp",
+    "scheme": "countapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon-all.png",
@@ -22,7 +22,7 @@
     ],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
-      "package": "com.andcounting",
+      "package": "com.countapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
@@ -36,7 +36,7 @@
     "ios": {
       "icon": "./assets/images/app-icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.andcounting",
+      "bundleIdentifier": "com.countapp",
       "splash": {
         "image": "./assets/images/splash-logo-ios-mobile.png",
         "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
@@ -59,8 +59,7 @@
         "expo-build-properties",
         {
           "ios": {
-            "newArchEnabled": false,
-            "flipper": false
+            "newArchEnabled": false
           },
           "android": {
             "newArchEnabled": false
@@ -76,6 +75,6 @@
     }
   },
   "ignite": {
-    "version": "9.6.3"
+    "version": "9.7.1"
   }
 }
