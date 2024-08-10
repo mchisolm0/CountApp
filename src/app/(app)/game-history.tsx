@@ -1,9 +1,11 @@
+import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { ViewStyle } from "react-native"
 import { Card, Screen, Text } from "src/components"
 import { Game, useStores } from "src/models"
 import { spacing } from "src/theme"
+import { useHeader } from "src/utils/useHeader"
 
 // TODO: Replace with actual logos
 // const chainReactLogo = require("assets/images/demo/cr-logo.png")
@@ -15,15 +17,15 @@ function GameHistoryScreen() {
   const {
     gameStore: { games },
   } = useStores()
-  // useHeader(
-  //   {
-  //     leftIcon: "back",
-  //     onLeftPress: () => router.back(),
-  //     rightText: "endGame",
-  //     onRightPress: endGame,
-  //   },
-  //   [endGame],
-  // )
+  useHeader(
+    {
+      leftIcon: "back",
+      onLeftPress: () => router.back(),
+      // rightText: "endGame",
+      // onRightPress: endGame,
+    },
+    [],
+  )
 
   return (
     <Screen
