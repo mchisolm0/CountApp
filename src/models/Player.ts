@@ -1,5 +1,7 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
+import { colorsList, iconsList } from "assets/misc/lists";
+import { v4 as uuidv4 } from "uuid"
 
 /**
  * Model description here for TypeScript hints.
@@ -7,18 +9,12 @@ import { withSetPropAction } from "./helpers/withSetPropAction"
 export const PlayerModel = types
   .model("Player")
   .props({
-    playerID: types.identifierNumber,
-    playerName: "Player",
-    lifePoints: 20,
-    color: types.enumeration(["red", "green", "pink", "blue"]),
-    playerIcon: types.enumeration([
-      "assets/icons/bell.png",
-      "assets/icons/lock.png",
-      "assets/icons/ladybug.png",
-      "assets/icons/settings.png",
-      "assets/icons/back.png",
-      "assets/icons/check.png",
-    ]),
+    playerID: types.optional(types.identifier, () => uuidv4()),
+    playerNumber: types.optional(types.number, 0),
+    playerName: types.optional(types.string, "Player"),
+    lifePoints: types.optional(types.number, 20),
+    color: types.enumeration(colorsList),
+    playerIcon: types.enumeration(iconsList),
   })
   .actions(withSetPropAction)
   .views((self) => ({
@@ -50,8 +46,4 @@ export const PlayerModel = types
 export interface Player extends Instance<typeof PlayerModel> { }
 export interface PlayerSnapshotOut extends SnapshotOut<typeof PlayerModel> { }
 export interface PlayerSnapshotIn extends SnapshotIn<typeof PlayerModel> { }
-export const createPlayerDefaultModel = () => types.optional(PlayerModel, {
-  playerID: 1,
-  color: "red",
-  playerIcon: "assets/icons/bell.png"
-})
+export const createPlayerDefaultModel = (playerNum: number) => types.optional(PlayerModel, {})

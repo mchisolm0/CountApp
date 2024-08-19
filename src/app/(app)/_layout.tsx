@@ -27,5 +27,5 @@ export default observer(function Layout() {
     return <Redirect href="/log-in" />;
   }
 
-  return <Stack screenOptions={{ headerShown: true }} />;
+  return <Stack screenOptions={{ headerShown: false }} />;
 });

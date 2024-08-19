@@ -1,13 +1,12 @@
-import React from 'react';
-import { Button } from './Button';
-import { Text } from './Text';
-import { Player } from 'src/models/Player';
-import { spacing } from 'src/theme';
-import { Icon } from './Icon';
-import { TransformsStyle, View, ViewStyle, useWindowDimensions } from 'react-native';
-import { Card } from './Card';
-import { observer } from 'mobx-react-lite';
-import { useStores } from 'src/models';
+import React from "react"
+import { Button } from "./Button"
+import { Text } from "./Text"
+import { Player } from "src/models/Player"
+import { spacing } from "src/theme"
+import { Icon } from "./Icon"
+import { View, ViewStyle } from "react-native"
+import { Card } from "./Card"
+import { observer } from "mobx-react-lite"
 
 // import { Container } from './styles';
 
@@ -19,21 +18,21 @@ interface RemoveLifePointsButtonProps {
 }
 
 interface PlayerCardProps {
-  player: Player;
+  player: Player
 }
 
 // TODO Finish making buttons with both +5/+1 and minus
 const RemoveLifePointsButton: React.FC<RemoveLifePointsButtonProps> = ({ player }) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View style={$buttonContainer}>
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.removeLifePoints(1)}
         LeftAccessory={(props) => <Icon style={props.style} icon="caretLeft" />}
         text={"-1"}
       />
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.removeLifePoints(5)}
         LeftAccessory={(props) => <Icon style={props.style} icon="caretLeft" />}
         text={"-5"}
@@ -44,15 +43,15 @@ const RemoveLifePointsButton: React.FC<RemoveLifePointsButtonProps> = ({ player 
 
 const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View style={$buttonContainer}>
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.addLifePoints(1)}
         RightAccessory={(props) => <Icon style={props.style} icon="caretRight" />}
         text={"+1"}
       />
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.addLifePoints(5)}
         RightAccessory={(props) => <Icon style={props.style} icon="caretRight" />}
         text={"+5"}
@@ -69,7 +68,7 @@ function PlayerCard({ player }: PlayerCardProps) {
   // let rotationDegrees = player.calculateRotation(numberOfPlayers, player.playerID)
   // const column = 2;
   // const { height, width } = useWindowDimensions()
-  let isRotated = false;
+  // let isRotated = false;
 
   // if (rotationDegrees !== '0deg') {
   //   isRotated = true;
@@ -117,6 +116,15 @@ const $cardBaseStyle: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   paddingHorizontal: spacing.xxxs,
+}
+
+const $buttonContainer: ViewStyle = {
+  flexDirection: "column",
+  gap: spacing.sm,
+}
+
+const $buttonStyle: ViewStyle = {
+  borderWidth: 0,
 }
 
 export default observer(PlayerCard)
