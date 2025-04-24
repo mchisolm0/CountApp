@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { View, ViewStyle } from "react-native"
+import { View, ViewStyle, useWindowDimensions } from "react-native"
 import { useStores } from "src/models"
 import { Player } from "src/models/Player"
 import { spacing } from "src/theme"
@@ -12,21 +12,22 @@ import { Text } from "./Text"
 interface AddLifePointsButtonProps {
   player: Player
 }
+
 interface RemoveLifePointsButtonProps {
   player: Player
 }
 
 const RemoveLifePointsButton: React.FC<RemoveLifePointsButtonProps> = ({ player }) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View style={$buttonContainer}>
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.removeLifePoints(1)}
         LeftAccessory={(props) => <Icon style={props.style} icon="caretLeft" />}
         text={"-1"}
       />
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.removeLifePoints(5)}
         LeftAccessory={(props) => <Icon style={props.style} icon="caretLeft" />}
         text={"-5"}
@@ -37,15 +38,15 @@ const RemoveLifePointsButton: React.FC<RemoveLifePointsButtonProps> = ({ player 
 
 const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => {
   return (
-    <View style={{ flexDirection: "column" }}>
+    <View style={$buttonContainer}>
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.addLifePoints(1)}
         RightAccessory={(props) => <Icon style={props.style} icon="caretRight" />}
         text={"+1"}
       />
       <Button
-        style={{ marginVertical: spacing.sm, borderWidth: 0 }}
+        style={$buttonStyle}
         onPress={() => player.addLifePoints(5)}
         RightAccessory={(props) => <Icon style={props.style} icon="caretRight" />}
         text={"+5"}
@@ -55,106 +56,111 @@ const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => 
 }
 
 export const PlayersGrid = observer(() => {
-  // TODO refactor to only pull out players array
-  const column = 2
-  let row = 1
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { width } = useWindowDimensions()
   const { gameStore: { currentGame } } = useStores()
+  
+  const getGridDimensions = () => {
+    const playerCount = currentGame.players.length
+    
+    if (playerCount <= 2) {
+      return { columns: 2, rows: 1 }
+    } else if (playerCount <= 4) {
+      return { columns: 2, rows: 2 }
+    } else {
+      return { columns: 3, rows: 2 }
+    }
+  }
 
-  // TODO $containerExpander stores the style to dynamically
-  // expand the last container in the map if there is only
-  // one in the row
-
-  // const $containerStyle = [$containerBaseStyle, $containerExpander]
+  const { columns, rows } = getGridDimensions()
+  const cardWidth = 100 / columns
+  const cardHeight = 100 / rows
 
   return (
     <View style={$container}>
       {currentGame.players.map((player: Player) => {
-        // TODO make cards rotate clockwise/counterclockwise
-        // based on if it is left/right of the screen
-        // (so players on each side see the text the right way)
-        //
-        // Previous code for rotation
-        // let rotationDegrees = player.calculateRotation(playersCount, player.playerID)
-        // let isRotated = false;
-        //
-        // if (rotationDegrees !== '0deg') {
-        //   isRotated = true;
-        // }
-        if (currentGame.playersCount < 3) {
-          row = 1
-        } else if (currentGame.playersCount < 5) {
-          row = 2
-        } else {
-          row = 3
-        }
-
-        // TODO draw out the containers to determine
-        // how to get the height/width right
-        // TODO brainstorm passing a preset to rotate
-        // the card
+        const isLeftSide = player.playerNumber % 2 === 0
+        const rotation = isLeftSide ? "90deg" : "-90deg"
+        
         const $cardContainer: ViewStyle = {
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          width: `${100 / column}%`,
-          height: `${100 / row}%`,
-          // backgroundColor: colors.background,
-          // transform: [{ rotate: rotationDegrees }]
+          width: `${cardWidth}%`,
+          height: `${cardHeight}%`,
+          padding: spacing.xs,
         }
 
         const $rotationWrapperStyle: ViewStyle = {
-          // width: `130%`,
-          // height: `80%`,
-          // TODO set height, subtracting height of
-          // safe areas and header
+          transform: [{ rotate: rotation }],
+          height: "100%",
+          width: "100%",
         }
-        const $cardStyle = [$cardBaseStyle, $rotationWrapperStyle]
 
         return (
-          <View
-            key={player.playerID}
-            style={$cardContainer}
-          >
+          <View key={player.playerID} style={$cardContainer}>
             <Card
               horizontalAlignment="center"
               verticalAlignment="center"
-              style={$cardStyle}
+              style={[$cardBaseStyle, $rotationWrapperStyle]}
               HeadingComponent={
                 <Text
                   style={{ marginVertical: spacing.sm }}
                   size="xxs"
-                  text={player.playerName + player.playerNumber}
+                  text={`Player ${player.playerNumber}`}
                 />
               }
               LeftComponent={<RemoveLifePointsButton player={player} />}
               ContentComponent={
-                <Text
-                  style={{ marginVertical: spacing.sm }}
-                  size="xxl"
-                  preset="bold"
-                  text={player.lifePoints.toString()}
-                />
+                <View style={$lifePointsContainer}>
+                  <Text
+                    style={{ marginVertical: spacing.sm }}
+                    size="xxl"
+                    preset="bold"
+                    text={player.lifePoints.toString()}
+                  />
+                  <Button
+                    style={$resetButton}
+                    text="Reset"
+                    onPress={() => player.resetLifePoints()}
+                  />
+                </View>
               }
               RightComponent={<AddLifePointsButton player={player} />}
             />
           </View>
         )
-      })
-      }
+      })}
     </View>
   )
 })
 
 const $container: ViewStyle = {
-  width: `${100}%`,
-  height: `${100}%`,
-  flexDirection: 'row',
-  flexWrap: 'wrap',
+  flex: 1,
+  flexDirection: "row",
+  flexWrap: "wrap",
 }
 
 const $cardBaseStyle: ViewStyle = {
-  minHeight: 160,
-  height: `${100}%`,
-  width: `${100}%`,
+  flex: 1,
   justifyContent: "center",
-  paddingHorizontal: spacing.lg,
+  alignItems: "center",
+  padding: spacing.sm,
+}
+
+const $buttonContainer: ViewStyle = {
+  flexDirection: "column",
+  gap: spacing.sm,
+}
+
+const $buttonStyle: ViewStyle = {
+  borderWidth: 0,
+  minWidth: 60,
+}
+
+const $lifePointsContainer: ViewStyle = {
+  alignItems: "center",
+  justifyContent: "center",
+}
+
+const $resetButton: ViewStyle = {
+  marginTop: spacing.xs,
+  minWidth: 80,
 }
