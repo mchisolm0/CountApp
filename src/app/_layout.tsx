@@ -4,7 +4,7 @@ import React from "react";
 import { ViewStyle } from "react-native"
 import { Slot, SplashScreen } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { useInitialRootStore } from "src/models";
+import { useInitialRootStore } from "../models/helpers/useStores";
 import { mst } from "reactotron-mst"
 import { Reactotron } from "src/devtools/ReactotronClient";
 

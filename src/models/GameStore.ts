@@ -21,6 +21,24 @@ export const GameStoreModel = types
     }),
   })
   .actions((self) => ({
+    createGame(playerCount: number) {
+      const newGame = GameModel.create({
+        gameID: uuidv4(),
+        date: new Date(),
+        players: Array.from({ length: playerCount }, (_, i) => ({
+          playerID: uuidv4(),
+          playerNumber: i + 1,
+          playerName: `Player ${i + 1}`,
+          lifePoints: 20,
+          color: colorsList[0],
+          playerIcon: iconsList[0],
+        })),
+        layout: "grid",
+        isActive: true,
+        isLocalMultiplayer: true,
+      })
+      self.currentGame = newGame
+    },
     setPlayerCount(count: number) {
       self.currentGame.players.clear()
       

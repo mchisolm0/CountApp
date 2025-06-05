@@ -19,7 +19,7 @@ export default observer(function WelcomeScreen() {
   } = useStores()
 
   function goNewGame(numberPlayers: number) {
-    gameStore.createGame(numberPlayers)
+    gameStore.setPlayerCount(numberPlayers)
     router.push("/game")
   }
 

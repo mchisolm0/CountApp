@@ -8,7 +8,7 @@ import { Text } from "src/components/Text"
 import { PlayersGrid } from "src/components/PlayersGrid"
 import { Screen } from "src/components/Screen"
 
-export const GameScreen = observer(function GameScreen() {
+export default observer(function GameScreen() {
   const { gameStore } = useStores()
   const [selectedPlayerCount, setSelectedPlayerCount] = useState(2)
 
