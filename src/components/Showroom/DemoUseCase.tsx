@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
-import { Text } from "../../components"
+import { Text } from ".."
 import { colors, spacing, typography } from "../../theme"
 
 interface DemoUseCaseProps {

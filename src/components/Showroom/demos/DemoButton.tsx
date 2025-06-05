@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
 import { ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Text } from "../../../components"
+import { Button, Icon, Text } from "../.."
 import { colors, typography } from "../../../theme"
 import { Demo } from "."
 import { DemoDivider } from "../DemoDivider"

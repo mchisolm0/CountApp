@@ -5,7 +5,6 @@ import { ViewStyle } from "react-native"
 import { Card, Screen, Text } from "src/components"
 import { Game, useStores } from "src/models"
 import { spacing } from "src/theme"
-import { useHeader } from "src/utils/useHeader"
 
 // TODO: Replace with actual logos
 // const chainReactLogo = require("assets/images/demo/cr-logo.png")
@@ -17,15 +16,6 @@ function GameHistoryScreen() {
   const {
     gameStore: { games },
   } = useStores()
-  useHeader(
-    {
-      leftIcon: "back",
-      onLeftPress: () => router.back(),
-      // rightText: "endGame",
-      // onRightPress: endGame,
-    },
-    [],
-  )
 
   return (
     <Screen
@@ -46,14 +36,13 @@ function GameHistoryScreen() {
   )
 }
 
-export default observer(GameHistoryScreen)
+export default GameHistoryScreen
+
+const $screenContentContainer: ViewStyle = {
+  paddingHorizontal: spacing.lg,
+  paddingTop: spacing.lg,
+}
 
 const $container: ViewStyle = {
-  paddingTop: spacing.lg + spacing.xl,
-  paddingHorizontal: spacing.lg,
-}
-const $screenContentContainer: ViewStyle = {
-  flex: 1,
-  paddingVertical: spacing.xxxs,
-  paddingHorizontal: spacing.xxxs,
+  marginBottom: spacing.md,
 }

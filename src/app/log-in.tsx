@@ -48,7 +48,7 @@ export default observer(function Login(_props) {
     setAuthToken(String(Date.now()));
 
     // navigate to the main screen
-    router.replace("/");
+    router.replace("/(app)");
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
