@@ -69,11 +69,34 @@ export const PlayersGrid = observer(() => {
     return { rows: Math.ceil(playerCount / 2), cols: 2 }
   }
 
+  const getCardDimensions = (numPlayers: number, screenWidth: number, screenHeight: number) => {
+    if (numPlayers === 2) {
+      return {
+        width: screenWidth,
+        height: screenHeight * 0.4
+      }
+    } else if (numPlayers > 2) {
+      // For rotated cards, we want them to fit within the screen bounds
+      // The card's visual width becomes its height after rotation
+      const maxHeight = screenHeight * 0.35 // Leave room for spacing
+      const maxWidth = screenWidth * 0.35  // Leave room for side-by-side cards
+      return {
+        width: maxWidth,
+        height: maxHeight
+      }
+    } else {
+      // Single player
+      return {
+        width: screenWidth * 0.25,
+        height: screenWidth * 0.35
+      }
+    }
+  }
+
   const { cols } = getGridLayout(numPlayers)
 
   const { height: screenHeight } = useWindowDimensions()
-  const cardWidth = numPlayers === 2 ? screenWidth : (numPlayers > 2 ? screenHeight * 0.5 : screenWidth * 0.25)
-  const cardHeight = numPlayers === 2 ? screenHeight * 0.5 : (numPlayers > 2 ? screenWidth * 0.5 : cardWidth * 1.4)
+  const { width: cardWidth, height: cardHeight } = getCardDimensions(numPlayers, screenWidth, screenHeight)
 
   const playerRows: Player[][] = []
   for (let i = 0; i < currentGame.players.length; i += cols) {
@@ -82,10 +105,9 @@ export const PlayersGrid = observer(() => {
 
   const $row: ViewStyle = {
     flexDirection: "row",
-    gap: spacing.xxl * 2,
     justifyContent: "center",
     alignItems: "center",
-    minHeight: cardHeight * 1.2,
+    minHeight: numPlayers > 2 ? cardWidth * 1.2 : cardHeight * 1.2,
   }
 
   return (
@@ -98,8 +120,8 @@ export const PlayersGrid = observer(() => {
             const cardStyle = [
               $cardWrapper,
               {
-                width: cardWidth,
-                height: cardHeight,
+                minWidth: cardWidth,
+                minHeight: cardHeight,
                 transform: numPlayers > 2 ? [{ rotate: `${rotationDeg}deg` }] : undefined
               }
             ]
@@ -157,7 +179,6 @@ const $container: ViewStyle = {
 const $cardWrapper: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
-  transformOrigin: "center center",
 }
 
 const $cardBaseStyle: ViewStyle = {
