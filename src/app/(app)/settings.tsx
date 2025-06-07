@@ -4,17 +4,14 @@ import React from "react"
 import { ViewStyle } from "react-native"
 import { Screen, Text } from "src/components"
 import { spacing } from "src/theme"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 function SettingsScreen() {
 
   return (
-    <Screen
-      preset="fixed"
-      contentContainerStyle={$screenContentContainer}
-      safeAreaEdges={["bottom"]}
-    >
+    <SafeAreaView style={$screenContentContainer}>
       <Text text="Settings" />
-    </Screen>
+    </SafeAreaView>
   )
 }
 

@@ -27,7 +27,7 @@ function GameHistoryScreen() {
         return (
           <Card
             key={game.gameID}
-            style={$container}
+            style={$cardContainer}
             ContentComponent={<Text text={"Game " + game.gameID} />}
           />
         )
@@ -43,6 +43,6 @@ const $screenContentContainer: ViewStyle = {
   paddingTop: spacing.lg,
 }
 
-const $container: ViewStyle = {
+const $cardContainer: ViewStyle = {
   marginBottom: spacing.md,
 }
