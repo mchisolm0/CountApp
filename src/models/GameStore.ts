@@ -11,6 +11,7 @@ import { colorsList, iconsList } from "assets/misc/lists"
 export const GameStoreModel = types
   .model("GameStore")
   .props({
+    games: types.array(GameModel),
     currentGame: types.optional(GameModel, {
       gameID: uuidv4(),
       date: new Date(),
