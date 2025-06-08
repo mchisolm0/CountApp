@@ -1,7 +1,8 @@
 import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { ViewStyle } from "react-native"
+import { TouchableOpacity, ViewStyle } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
 import { Card, Screen, Text } from "src/components"
 import { Game, useStores } from "src/models"
 import { spacing } from "src/theme"
@@ -23,6 +24,12 @@ function GameHistoryScreen() {
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["bottom"]}
     >
+      <TouchableOpacity
+        style={$floatingBackButton}
+        onPress={() => router.back()}
+      >
+        <Ionicons name="arrow-back" size={24} color="white" />
+      </TouchableOpacity>
       {games.map((game: Game) => {
         return (
           <Card
@@ -45,4 +52,17 @@ const $screenContentContainer: ViewStyle = {
 
 const $cardContainer: ViewStyle = {
   marginBottom: spacing.md,
+}
+
+const $floatingBackButton: ViewStyle = {
+  position: 'absolute',
+  top: 50,
+  left: 20,
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000,
 }
