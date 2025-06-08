@@ -8,7 +8,7 @@ require("ts-node/register")
 
 /**
  * @param config ExpoConfig coming from the static config app.json if it exists
- * 
+ *
  * You can read more about Expo's Configuration Resolution Rules here:
  * https://docs.expo.dev/workflow/configuration/#configuration-resolution-rules
  */
@@ -32,21 +32,19 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "com.countapp",
+    bundleIdentifier: "how.sowinghope.countapp",
+    config: {
+      usesNonExemptEncryption: false
+    }
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/images/app-icon-android-adaptive-foreground.png",
       backgroundImage: "./assets/images/app-icon-android-adaptive-background.png",
     },
-    package: "com.countapp",
+    package: "how.sowinghope.countapp",
   },
   plugins: [
     "expo-build-properties",
   ],
-  extra: {
-    eas: {
-      projectId: "your-project-id",
-    },
-  },
 })
