@@ -173,7 +173,10 @@ export function Card(props: CardProps) {
   >
   const HeaderContentWrapper = verticalAlignment === "force-footer-bottom" ? View : Fragment
 
-  const $containerStyle = [$containerPresets[preset], $containerStyleOverride]
+  const $containerStyle = [
+    $containerPresets[preset],
+    $containerStyleOverride
+  ]
   const $headingStyle = [
     $headingPresets[preset],
     (isFooterPresent || isContentPresent) && { marginBottom: spacing.xxxs },
@@ -193,7 +196,7 @@ export function Card(props: CardProps) {
     $footerStyleOverride,
     FooterTextProps?.style,
   ]
-  // TODO: I feel my solution to adding alignItems is clunky. 
+  // TODO: I feel my solution to adding alignItems is clunky.
   // It solved the type error given by the style prop of the
   // <View style={$alignmentWrapperStyle}> after {LeftComponent}
   const $alignmentWrapperStyle = [

@@ -1,4 +1,3 @@
-import { useScrollToTop } from "@react-navigation/native"
 import { StatusBar, StatusBarProps } from "expo-status-bar"
 import React, { useRef, useState } from "react"
 import {
@@ -188,10 +187,6 @@ function ScreenWithScrolling(props: ScreenProps) {
   const ref = useRef<ScrollView>(null)
 
   const { scrollEnabled, onContentSizeChange, onLayout } = useAutoPreset(props as AutoScreenProps)
-
-  // Add native behavior of pressing the active tab to scroll to the top of the content
-  // More info at: https://reactnavigation.org/docs/use-scroll-to-top/
-  useScrollToTop(ref)
 
   return (
     <ScrollView

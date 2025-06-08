@@ -1,39 +1,34 @@
-import React from "react"
-import { TouchableOpacity, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { spacing } from "src/theme"
-import { PlayersGrid } from "src/components/PlayersGrid"
 import { router } from "expo-router"
+import { observer } from "mobx-react-lite"
+import React from "react"
+import { TouchableOpacity, ViewStyle } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
+import { Screen, Text } from "src/components"
+import { spacing } from "src/theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 
-export default observer(function GameScreen() {
+function SettingsScreen() {
+
   return (
-    <SafeAreaView style={$container}>
+    <SafeAreaView style={$screenContentContainer}>
       <TouchableOpacity
         style={$floatingBackButton}
         onPress={() => router.back()}
       >
         <Ionicons name="arrow-back" size={24} color="white" />
       </TouchableOpacity>
-      <View style={$gameBoard}>
-        <PlayersGrid />
-      </View>
+      <Text text="Settings" />
     </SafeAreaView>
   )
-})
-
-const $container: ViewStyle = {
-  flex: 1,
-  paddingHorizontal: spacing.sm,
-  paddingTop: spacing.sm,
 }
 
-const $gameBoard: ViewStyle = {
-  flex: 1,
-  marginTop: spacing.sm,
-  height: "100%",
+export default SettingsScreen
+
+const $screenContentContainer: ViewStyle = {
+  paddingHorizontal: spacing.lg,
+  paddingTop: spacing.lg,
 }
+
 const $floatingBackButton: ViewStyle = {
   position: 'absolute',
   top: 50,

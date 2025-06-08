@@ -1,11 +1,11 @@
 import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { ViewStyle } from "react-native"
+import { TouchableOpacity, ViewStyle } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
 import { Card, Screen, Text } from "src/components"
 import { Game, useStores } from "src/models"
 import { spacing } from "src/theme"
-import { useHeader } from "src/utils/useHeader"
 
 // TODO: Replace with actual logos
 // const chainReactLogo = require("assets/images/demo/cr-logo.png")
@@ -17,15 +17,6 @@ function GameHistoryScreen() {
   const {
     gameStore: { games },
   } = useStores()
-  useHeader(
-    {
-      leftIcon: "back",
-      onLeftPress: () => router.back(),
-      // rightText: "endGame",
-      // onRightPress: endGame,
-    },
-    [],
-  )
 
   return (
     <Screen
@@ -33,11 +24,17 @@ function GameHistoryScreen() {
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["bottom"]}
     >
+      <TouchableOpacity
+        style={$floatingBackButton}
+        onPress={() => router.back()}
+      >
+        <Ionicons name="arrow-back" size={24} color="white" />
+      </TouchableOpacity>
       {games.map((game: Game) => {
         return (
           <Card
             key={game.gameID}
-            style={$container}
+            style={$cardContainer}
             ContentComponent={<Text text={"Game " + game.gameID} />}
           />
         )
@@ -46,14 +43,26 @@ function GameHistoryScreen() {
   )
 }
 
-export default observer(GameHistoryScreen)
+export default GameHistoryScreen
 
-const $container: ViewStyle = {
-  paddingTop: spacing.lg + spacing.xl,
-  paddingHorizontal: spacing.lg,
-}
 const $screenContentContainer: ViewStyle = {
-  flex: 1,
-  paddingVertical: spacing.xxxs,
-  paddingHorizontal: spacing.xxxs,
+  paddingHorizontal: spacing.lg,
+  paddingTop: spacing.lg,
+}
+
+const $cardContainer: ViewStyle = {
+  marginBottom: spacing.md,
+}
+
+const $floatingBackButton: ViewStyle = {
+  position: 'absolute',
+  top: 50,
+  left: 20,
+  width: 40,
+  height: 40,
+  borderRadius: 20,
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 1000,
 }

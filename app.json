@@ -36,12 +36,15 @@
     "ios": {
       "icon": "./assets/images/app-icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.countapp",
+      "bundleIdentifier": "how.sowinghope.countapp",
       "splash": {
         "image": "./assets/images/splash-logo-ios-mobile.png",
         "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "web": {
@@ -61,6 +64,12 @@
     "experiments": {
       "tsconfigPaths": true,
       "typedRoutes": true
+    },
+    "owner": "hchs_cs",
+    "extra": {
+      "eas": {
+        "projectId": "7846fa6e-6c85-421e-944f-4d0eaf761a40"
+      }
     }
   },
   "ignite": {

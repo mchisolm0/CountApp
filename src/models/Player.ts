@@ -41,6 +41,9 @@ export const PlayerModel = types
     addLifePoints(amount: number) {
       self.lifePoints = self.lifePoints + amount
     },
+    resetLifePoints() {
+      self.lifePoints = 20
+    },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export interface Player extends Instance<typeof PlayerModel> { }

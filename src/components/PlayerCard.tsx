@@ -60,28 +60,8 @@ const AddLifePointsButton: React.FC<AddLifePointsButtonProps> = ({ player }) => 
   )
 }
 
-// TODO add rotate prop to rotate card 90 degrees
-// players.length > 1 AND do one of the following
-// clockwise if id % 2 == 0
-// counter-clockwise if id % 2 == 1
 function PlayerCard({ player }: PlayerCardProps) {
-  // let rotationDegrees = player.calculateRotation(numberOfPlayers, player.playerID)
-  // const column = 2;
-  // const { height, width } = useWindowDimensions()
-  // let isRotated = false;
-
-  // if (rotationDegrees !== '0deg') {
-  //   isRotated = true;
-  // }
-  //
-  const $rotationWrapperStyle = {
-    // transform: [{ rotate: rotationDegrees }],
-    // TODO set height, subtracting height of
-    // safe areas and header
-    // height: height - 110,
-  }
-
-  const $cardContainer = [$cardBaseStyle, $rotationWrapperStyle]
+  const $cardContainer = [$cardBaseStyle]
 
   return (
     <Card

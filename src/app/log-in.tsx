@@ -2,9 +2,10 @@ import { router } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { ComponentType, useEffect, useMemo, useRef, useState } from "react";
 import { TextInput, TextStyle, ViewStyle } from "react-native";
-import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "src/components";
+import { Button, Icon, Text, TextField, TextFieldAccessoryProps } from "src/components";
 import { useStores } from "src/models";
 import { colors, spacing } from "src/theme";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default observer(function Login(_props) {
   const authPasswordInput = useRef<TextInput>(null);
@@ -48,7 +49,7 @@ export default observer(function Login(_props) {
     setAuthToken(String(Date.now()));
 
     // navigate to the main screen
-    router.replace("/");
+    router.replace("/(app)");
   }
 
   const PasswordRightAccessory: ComponentType<TextFieldAccessoryProps> = useMemo(
@@ -68,7 +69,7 @@ export default observer(function Login(_props) {
   );
 
   return (
-    <Screen preset="auto" contentContainerStyle={$screenContentContainer} safeAreaEdges={["top", "bottom"]}>
+    <SafeAreaView style={$screenContentContainer}>
       <Text testID="login-heading" tx="loginScreen.signIn" preset="heading" style={$signIn} />
       <Text tx="loginScreen.enterDetails" preset="subheading" style={$enterDetails} />
       {attemptsCount > 2 && <Text tx="loginScreen.hint" size="sm" weight="light" style={$hint} />}
@@ -104,7 +105,7 @@ export default observer(function Login(_props) {
       />
 
       <Button testID="login-button" tx="loginScreen.tapToSignIn" style={$tapButton} preset="reversed" onPress={login} />
-    </Screen>
+    </SafeAreaView>
   );
 });
 

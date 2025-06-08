@@ -1,11 +1,9 @@
-import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
-import { withSetPropAction } from "./helpers/withSetPropAction"
-import { GameModel } from "./Game"
-import { PlayerStoreModel } from "./PlayerStore"
+import { Instance, SnapshotOut, SnapshotIn, types } from "mobx-state-tree"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PlayerModel } from "./Player"
+import { GameModel, createGameDefaultModel } from "./Game"
+import { v4 as uuidv4 } from "uuid"
 import { colorsList, iconsList } from "assets/misc/lists"
-import { router } from "expo-router"
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry"
 
 /**
  * Model description here for TypeScript hints.
@@ -14,61 +12,56 @@ export const GameStoreModel = types
   .model("GameStore")
   .props({
     games: types.array(GameModel),
-    currentGame: types.maybe(types.reference(GameModel)),
-    offlineGames: types.array(types.reference(GameModel)),
-    activeGames: types.array(types.reference(GameModel)),
-    offlineOnly: false,
-    activeOnly: false,
+    currentGame: types.optional(GameModel, {
+      gameID: uuidv4(),
+      date: new Date(),
+      players: [],
+      layout: "grid",
+      isActive: true,
+      isLocalMultiplayer: true,
+    }),
   })
-  .actions(withSetPropAction)
-  .views((self) => ({
-    get gamesForList() {
-      if (self.offlineOnly && self.activeOnly) {
-        const filteredArray = self.offlineGames.filter(game => self.activeGames.includes(game))
-        return filteredArray
-      } else if (self.activeOnly) {
-        return self.activeGames
-      } else if (self.offlineOnly) {
-        return self.offlineGames
-      } else {
-        return self.games
-      }
-    }
-  })) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
-    createGame(numberOfPlayers: number) {
-      const examplePlayers = []
-
-      for (let i = 0; i < numberOfPlayers; i++) {
-        const newPlayer = PlayerModel.create({
-          // TODO will eventually need to track numbers
-          // used to ensure no duplicates. Possibly a
-          // map or set?
-          playerNumber: i,
-          color: colorsList[i],
-          playerIcon: iconsList[i]
-        })
-        examplePlayers.push(newPlayer)
-      }
+    createGame(playerCount: number) {
       const newGame = GameModel.create({
-        players: examplePlayers,
+        gameID: uuidv4(),
+        date: new Date(),
+        players: Array.from({ length: playerCount }, (_, i) => ({
+          playerID: uuidv4(),
+          playerNumber: i + 1,
+          playerName: `Player ${i + 1}`,
+          lifePoints: 20,
+          color: colorsList[0],
+          playerIcon: iconsList[0],
+        })),
+        layout: "grid",
+        isActive: true,
+        isLocalMultiplayer: true,
       })
-      self.games.push(newGame)
-      self.currentGame = this.getGameByID(newGame.gameID)
+      self.currentGame = newGame
     },
-    getGameByID(id: string) {
-      return self.games.find(game => game.gameID === id)
-    },
-    endGame() {
-      if (self.currentGame) {
-        // toggle the game's active status, set currentGame to null, and call router.back()
-        self.currentGame.isActive = false
-      }
-      router.back()
-    }
-  })) // eslint-disable-line @typescript-eslint/no-unused-vars
+    setPlayerCount(count: number) {
+      self.currentGame.players.replace([])
 
-export interface GameStore extends Instance<typeof GameStoreModel> { }
-export interface GameStoreSnapshotOut extends SnapshotOut<typeof GameStoreModel> { }
-export interface GameStoreSnapshotIn extends SnapshotIn<typeof GameStoreModel> { }
-export const createGameStoreDefaultModel = () => types.optional(GameStoreModel, {})
+      // Create new players based on count
+      for (let i = 0; i < count; i++) {
+        self.currentGame.players.push({
+          playerID: uuidv4(),
+          playerNumber: i + 1,
+          playerName: `Player ${i + 1}`,
+          lifePoints: 20,
+          color: colorsList[0],
+          playerIcon: iconsList[0],
+        })
+      }
+    },
+    resetGame() {
+      self.currentGame.players.forEach((player) => {
+        player.resetLifePoints()
+      })
+    },
+  }))
+
+export interface GameStore extends Instance<typeof GameStoreModel> {}
+export interface GameStoreSnapshotOut extends SnapshotOut<typeof GameStoreModel> {}
+export interface GameStoreSnapshotIn extends SnapshotIn<typeof GameStoreModel> {}

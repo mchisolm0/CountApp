@@ -2,11 +2,11 @@ import { router } from "expo-router"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { Image, ImageStyle, View, ViewStyle } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { Button, Text } from "src/components"
 import { isRTL } from "src/i18n"
 import { useStores } from "src/models"
 import { colors, spacing } from "src/theme"
-import { useHeader } from "src/utils/useHeader"
 import { useSafeAreaInsetsStyle } from "src/utils/useSafeAreaInsetsStyle"
 
 const welcomeLogo = require("assets/images/logo.png")
@@ -19,22 +19,15 @@ export default observer(function WelcomeScreen() {
   } = useStores()
 
   function goNewGame(numberPlayers: number) {
-    gameStore.createGame(numberPlayers)
+    gameStore.setPlayerCount(numberPlayers)
     router.push("/game")
   }
 
-  useHeader(
-    {
-      rightTx: "common.logOut",
-      onRightPress: logout,
-    },
-    [logout],
-  )
 
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
-    <View style={$container}>
+    <SafeAreaView style={$container}>
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <View style={[$bottomContainer, $bottomContainerInsets]}>
@@ -61,7 +54,6 @@ export default observer(function WelcomeScreen() {
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
-        {/* Revise tx to use the welcomeScreen.postscript key in translations */}
         <Text tx="welcomeScreen.postscript" size="md" />
         <Button
           testID="next-screen-button"
@@ -82,7 +74,7 @@ export default observer(function WelcomeScreen() {
           onPress={() => goNewGame(4)}
         />
       </View>
-    </View>
+    </SafeAreaView>
   )
 })
 
@@ -92,35 +84,27 @@ const $container: ViewStyle = {
 }
 
 const $topContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: "57%",
-  justifyContent: "center",
+  flex: 1,
+  alignItems: "center",
   paddingHorizontal: spacing.lg,
+  paddingTop: spacing.xl,
 }
 
 const $bottomContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 0,
-  flexBasis: "43%",
-  backgroundColor: colors.palette.neutral100,
-  borderTopLeftRadius: 16,
-  borderTopRightRadius: 16,
-  paddingHorizontal: spacing.lg,
-  justifyContent: "space-around",
-}
-const $welcomeLogo: ImageStyle = {
-  height: 88,
   width: "100%",
-  marginBottom: spacing.xxl,
+  paddingHorizontal: spacing.lg,
+  paddingBottom: spacing.lg,
+}
+
+const $welcomeLogo: ImageStyle = {
+  height: 100,
+  width: "100%",
+  marginBottom: spacing.xl,
 }
 
 const $welcomeFace: ImageStyle = {
-  height: 169,
-  width: 269,
-  position: "absolute",
-  bottom: -47,
-  right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
+  height: 100,
+  width: "100%",
+  marginTop: spacing.xl,
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React from "react"
-import { Text } from "../../../components"
+import { Text } from "../.."
 import { colors } from "../../../theme"
 import { Demo } from "."
 import { DemoDivider } from "../DemoDivider"

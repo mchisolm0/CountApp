@@ -8,18 +8,43 @@ require("ts-node/register")
 
 /**
  * @param config ExpoConfig coming from the static config app.json if it exists
- * 
+ *
  * You can read more about Expo's Configuration Resolution Rules here:
  * https://docs.expo.dev/workflow/configuration/#configuration-resolution-rules
  */
-module.exports = ({ config }: ConfigContext): Partial<ExpoConfig> => {
-  const existingPlugins = config.plugins ?? []
-
-  return {
-    ...config,
-    plugins: [
-      ...existingPlugins,
-      require("./plugins/withSplashScreen").withSplashScreen,
-    ],
-  }
-}
+module.exports = ({ config }: ConfigContext): ExpoConfig => ({
+  ...config,
+  name: "CountApp",
+  slug: "CountApp",
+  version: "1.0.0",
+  orientation: "portrait",
+  icon: "./assets/images/app-icon-all.png",
+  scheme: "countapp",
+  userInterfaceStyle: "automatic",
+  splash: {
+    image: "./assets/images/splash-logo-all.png",
+    resizeMode: "contain",
+    backgroundColor: "#191015",
+  },
+  updates: {
+    fallbackToCacheTimeout: 0,
+  },
+  assetBundlePatterns: ["**/*"],
+  ios: {
+    supportsTablet: true,
+    bundleIdentifier: "how.sowinghope.countapp",
+    config: {
+      usesNonExemptEncryption: false
+    }
+  },
+  android: {
+    adaptiveIcon: {
+      foregroundImage: "./assets/images/app-icon-android-adaptive-foreground.png",
+      backgroundImage: "./assets/images/app-icon-android-adaptive-background.png",
+    },
+    package: "how.sowinghope.countapp",
+  },
+  plugins: [
+    "expo-build-properties",
+  ],
+})
