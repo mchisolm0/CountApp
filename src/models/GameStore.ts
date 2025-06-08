@@ -40,8 +40,8 @@ export const GameStoreModel = types
       self.currentGame = newGame
     },
     setPlayerCount(count: number) {
-      self.currentGame.players.clear()
-      
+      self.currentGame.players.replace([])
+
       // Create new players based on count
       for (let i = 0; i < count; i++) {
         self.currentGame.players.push({
